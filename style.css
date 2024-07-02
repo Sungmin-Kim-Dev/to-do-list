@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  background: url(images/background.jpg) no-repeat;
+  background-size: cover;
+}
+p {
+  margin: 0;
+}
+
+.container {
+  min-height: 100vh;
+}
+
+#under-line {
+  height: 5px;
+  background-color: pink;
+  position: absolute;
+  width: 80px;
+  left: 0;
+  top: 50px;
+}
+
+/* 원래는 부트스트랩 클래스 이름으로 아래 선을 넣으려 했는데 
+  마지막 줄만 없애려고 클래스 이름에 직접 스타일 지정
+  색은 부트스트랩에 저장된 색 사용 */
+.task-row {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+.task-row:last-child {
+  border-bottom: none;
+}
+
