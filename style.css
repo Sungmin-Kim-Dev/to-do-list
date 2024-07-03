@@ -21,7 +21,8 @@ p {
 }
 
 /* 원래는 부트스트랩 클래스 이름으로 아래 선을 넣으려 했는데 
-  마지막 줄만 없애려고 클래스 이름에 직접 스타일 지정
+  마지막 항목 아래에는 줄이 없어야 하므로
+  클래스 이름에 직접 스타일 지정
   색은 부트스트랩에 저장된 색 사용 */
 .task-row {
   border-bottom: 1px solid var(--bs-border-color);
@@ -30,3 +31,26 @@ p {
   border-bottom: none;
 }
 
+.task-button button {
+  border: none;
+  background: none;
+  height: 100%;
+  width: 4rem;
+  font-size: 1.2rem;
+}
+
+.check-btn {
+  color: rgb(39, 178, 0);
+  &:hover {
+    background: #03ed0b;
+  }
+}
+.fa-rotate-left {
+  color:gainsboro;
+}
+.delete-btn {
+  color: rgb(255, 55, 0);
+  &:hover {
+    background: #ff7777;
+  }
+}
