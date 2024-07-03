@@ -3,9 +3,6 @@ body {
   background: url(images/background.jpg) no-repeat;
   background-size: cover;
 }
-p {
-  margin: 0;
-}
 
 .container {
   min-height: 100vh;

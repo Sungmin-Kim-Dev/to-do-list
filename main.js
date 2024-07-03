@@ -16,6 +16,8 @@ let taskInput = document.getElementById('task-input');
 let addButton = document.getElementById('add-button');
 let taskList = [];
 addButton.addEventListener('click', addTask);
+
+// Enter 키로 입력
 taskInput.addEventListener('keydown', function (event) {
   // .keycode is deprecated.
   if (event.key === 'Enter') {
@@ -35,6 +37,7 @@ function addTask() {
   taskList.push(task);
   console.log(taskList);
   render();
+  // 입력창 내용은 지우기
   taskInput.value = '';
 }
 
