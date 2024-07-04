@@ -8,6 +8,10 @@ body {
   min-height: 100vh;
 }
 
+.tabs div {
+  cursor: pointer;
+}
+
 #under-line {
   height: 5px;
   background-color: pink;
@@ -43,7 +47,7 @@ body {
   }
 }
 .fa-rotate-left {
-  color:gainsboro;
+  color: gainsboro;
 }
 .delete-btn {
   color: rgb(255, 55, 0);

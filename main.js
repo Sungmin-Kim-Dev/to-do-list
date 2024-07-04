@@ -14,7 +14,17 @@
 
 let taskInput = document.getElementById('task-input');
 let addButton = document.getElementById('add-button');
+let tabs = document.querySelectorAll('.tabs div');
 let taskList = [];
+let mode = 'all';
+let filterList = [];
+
+for (let i = 1; i < tabs.length; i++) {
+  tabs[i].addEventListener('click', function (event) {
+    filter(event);
+  });
+}
+
 addButton.addEventListener('click', addTask);
 
 // Enter 키로 입력
@@ -43,16 +53,22 @@ function addTask() {
 
 function render() {
   let resultHTML = '';
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].isComplete == true) {
+  let listName = [];
+  if (mode === 'all') {
+    listName = taskList;
+  } else if (mode === 'in-progress' || mode === 'done') {
+    listName = filterList;
+  }
+  for (let i = 0; i < listName.length; i++) {
+    if (listName[i].isComplete == true) {
       resultHTML += `
       <div class="task-row row mx-0">
-        <p class="col m-0 p-3 h5 text-decoration-line-through bg-dark-subtle">${taskList[i].taskName}</p>
+        <p class="col m-0 p-3 h5 text-decoration-line-through bg-dark-subtle">${listName[i].taskName}</p>
         <div class="task-button col-auto align-content-center">
-          <button onclick="toggleComplete('${taskList[i].id}')" class="check-btn">
+          <button onclick="toggleComplete('${listName[i].id}')" class="check-btn">
             <i class="fa-solid fa-rotate-left"></i>
           </button>
-          <button onclick="deleteTask('${taskList[i].id}')" class="delete-btn ms-2">
+          <button onclick="deleteTask('${listName[i].id}')" class="delete-btn ms-2">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
@@ -60,12 +76,12 @@ function render() {
     } else {
       resultHTML += `
       <div class="task-row row mx-0">
-        <p class="col m-0 p-3 h5">${taskList[i].taskName}</p>
+        <p class="col m-0 p-3 h5">${listName[i].taskName}</p>
         <div class="task-button col-auto align-content-center">
-          <button onclick="toggleComplete('${taskList[i].id}')" class="check-btn">
+          <button onclick="toggleComplete('${listName[i].id}')" class="check-btn">
             <i class="fa-solid fa-check"></i>
           </button>
-          <button onclick="deleteTask('${taskList[i].id}')" class="delete-btn ms-2">
+          <button onclick="deleteTask('${listName[i].id}')" class="delete-btn ms-2">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
@@ -85,6 +101,33 @@ function toggleComplete(id) {
   }
   render();
 }
+
+function filter(event) {
+  mode = event.target.id;
+  filterList = [];
+  if (mode === 'all') {
+    // 전체 리스트 표시
+    render();
+  } else if (mode === 'in-progress') {
+    // 진행 중만 표시
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === false) {
+        filterList.push(taskList[i]);
+        console.log(taskList[i]);
+      }
+    }
+    render();
+  } else if (mode === 'done') {
+    // 완료된 항목 표시
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === true) {
+        filterList.push(taskList[i]);
+      }
+    }
+    render();
+  }
+}
+
 function deleteTask(id) {
   for (let i in taskList) {
     if (taskList[i].id == id) {
