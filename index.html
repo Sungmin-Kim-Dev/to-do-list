@@ -13,22 +13,34 @@
 </head>
 
 <body>
-  <!-- css는 학원 2개월 다니면서 많이 해봐서
-    부트스트랩을 최대한 써보려고 합니다. -->
+  <!-- 부트스트랩 사용법을 익히기 위하여 부트스트랩을 최대한 활용 -->
   <div class="container bg-white bg-opacity-75 shadow-lg px-4">
-    <h1 class="pt-3">Todo List</h1>
-    <section class="input-area mt-4">
-      <input type="text" name="" id="task-input">
-      <button id="add-button">+</button>
+    <h1 class="pt-3 fw-bolder text-center">Todo List</h1>
+    <section class="input-area mt-4 mx-0 row justify-content-between align-items-center">
+      <div class="input-area p-0 col">
+        <input type="text" name="" id="task-input">
+        <button id="add-button">+</button>
+      </div>
+      <button id="clear-button" class="col-2 btn btn-danger">Clear</button>
     </section>
     <section class="task-area border mt-3">
-      <div class="tabs row border-bottom mx-0 position-relative">
-        <div id="under-line"></div>
-        <div id="all" class="col-2 p-3">All</div>
-        <div id="in-progress" class="col-2 p-3">In Progress</div>
-        <div id="done" class="col-2 p-3">Done</div>
+      <div class="tabs row border-bottom mx-0 text-center">
+        <!-- 언더라인이 탭과 함께 크기를 반응형으로 하기 위하여 JS에서 클래스 이름 추가/제거 방법 사용 -->
+        <div id="all" class="col-sm-2 col p-3 position-relative">
+          All
+          <div id="underline" class="d-block"></div>
+        </div>
+        <div id="to-do" class="col-sm-2 col p-3 position-relative">
+          To Do
+          <div id="underline"></div>
+        </div>
+        <div id="done" class="col-sm-2 col p-3 position-relative">
+          Done
+          <div id="underline"></div>
+        </div>
       </div>
       <div class="mx-0" id="task-board">
+        <!-- 차후 유지 보수를 위해 주석 처리 -->
         <!-- <div class="task-row row mx-0">
           <p class="col p-3 h5 ms-2">task</p>
           <div class="task-button col-auto align-content-center">

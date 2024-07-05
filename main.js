@@ -14,24 +14,32 @@
 
 let taskInput = document.getElementById('task-input');
 let addButton = document.getElementById('add-button');
+let clearButton = document.getElementById('clear-button');
 let tabs = document.querySelectorAll('.tabs div');
 let taskList = [];
 let mode = 'all';
 let filterList = [];
+let tabList = ['all', 'to-do', 'done'];
 
-for (let i = 1; i < tabs.length; i++) {
+// 탭 언더라인 표시 방법 중 css 속성 변경 시 초기값 설정
+// document.querySelector(`#${mode} #underline`).style.display = 'block';
+
+for (let i = 0; i < tabs.length; i++) {
   tabs[i].addEventListener('click', function (event) {
     filter(event);
+    console.log(event);
   });
 }
 
 addButton.addEventListener('click', addTask);
 
+clearButton.addEventListener('click', clearList);
+
 // Enter 키로 입력
 taskInput.addEventListener('keydown', function (event) {
   // .keycode is deprecated.
   if (event.key === 'Enter') {
-    addTask();
+    addTask(event);
   }
 });
 
@@ -46,7 +54,7 @@ function addTask() {
   };
   taskList.push(task);
   console.log(taskList);
-  render();
+  filter();
   // 입력창 내용은 지우기
   taskInput.value = '';
 }
@@ -56,7 +64,7 @@ function render() {
   let listName = [];
   if (mode === 'all') {
     listName = taskList;
-  } else if (mode === 'in-progress' || mode === 'done') {
+  } else if (mode === 'to-do' || mode === 'done') {
     listName = filterList;
   }
   for (let i = 0; i < listName.length; i++) {
@@ -99,33 +107,7 @@ function toggleComplete(id) {
       break;
     }
   }
-  render();
-}
-
-function filter(event) {
-  mode = event.target.id;
-  filterList = [];
-  if (mode === 'all') {
-    // 전체 리스트 표시
-    render();
-  } else if (mode === 'in-progress') {
-    // 진행 중만 표시
-    for (let i = 0; i < taskList.length; i++) {
-      if (taskList[i].isComplete === false) {
-        filterList.push(taskList[i]);
-        console.log(taskList[i]);
-      }
-    }
-    render();
-  } else if (mode === 'done') {
-    // 완료된 항목 표시
-    for (let i = 0; i < taskList.length; i++) {
-      if (taskList[i].isComplete === true) {
-        filterList.push(taskList[i]);
-      }
-    }
-    render();
-  }
+  filter();
 }
 
 function deleteTask(id) {
@@ -135,6 +117,60 @@ function deleteTask(id) {
       break;
     }
   }
+  filter();
+}
+
+function clearList() {
+  mode = 'all';
+  taskList = [];
+  filter();
+}
+
+function filter(event) {
+  if (event) {
+    // underline에 클릭하는 경우에 id 값에 underline이 지정되므로 상위 id 값으로 변경
+    if (event.target.id === 'underline') {
+      mode = event.target.offsetParent.id;
+    } else {
+      mode = event.target.id;
+    }
+  }
+  console.log(mode);
+  filterList = [];
+  if (mode === 'all') {
+    console.log(mode);
+  } else if (mode === 'to-do') {
+    // 진행 중만 표시
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === false) {
+        filterList.push(taskList[i]);
+      }
+    }
+  } else if (mode === 'done') {
+    // 완료된 항목 표시
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === true) {
+        filterList.push(taskList[i]);
+      }
+    }
+  }
+
+  // 언더라인 표시
+  tabList.forEach((tabName) => {
+    if (tabName === mode) {
+      // html에 클래스 이름을 붙이는 방법
+      // d-block은 부트스트랩 클래스
+      // 처음에 표시되는 All 탭의 언더라인은
+      // html에서 바로 지정
+      document.querySelector(`#${tabName} #underline`).className = 'd-block';
+      // css 속성을 바꾸는 방법
+      // 이 방법은 초기 설정값이 필요
+      // document.querySelector(`#${tabName} #underline`).style.display = 'block';
+    } else {
+      document.querySelector(`#${tabName} #underline`).classList.remove('d-block');
+      // document.querySelector(`#${tabName} #underline`).style.display = 'none';
+    }
+  });
   render();
 }
 

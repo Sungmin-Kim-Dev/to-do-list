@@ -6,19 +6,30 @@ body {
 
 .container {
   min-height: 100vh;
+  max-width: 45rem;
+}
+
+#task-input {
+  width: 40vw;
+  max-width: 15rem;
+}
+#clear-button {
+  min-width: 3.75rem;
 }
 
 .tabs div {
   cursor: pointer;
 }
 
-#under-line {
-  height: 5px;
-  background-color: pink;
+#underline {
+  height: 0.75rem;
+  background-color: rgba(255, 192, 203, 0.696);
+  /* 표시 여부에 관계 없이 전체 크기가 같아야 해서 position absolute 사용 */
   position: absolute;
-  width: 80px;
+  width: 100%;
   left: 0;
-  top: 50px;
+  bottom: 0;
+  display: none;
 }
 
 /* 원래는 부트스트랩 클래스 이름으로 아래 선을 넣으려 했는데 
