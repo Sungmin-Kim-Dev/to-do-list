@@ -27,7 +27,6 @@ let tabList = ['all', 'to-do', 'done'];
 for (let i = 0; i < tabs.length; i++) {
   tabs[i].addEventListener('click', function (event) {
     filter(event);
-    console.log(event);
   });
 }
 
@@ -53,7 +52,6 @@ function addTask() {
     isComplete: false,
   };
   taskList.push(task);
-  console.log(taskList);
   filter();
   // 입력창 내용은 지우기
   taskInput.value = '';
@@ -135,11 +133,8 @@ function filter(event) {
       mode = event.target.id;
     }
   }
-  console.log(mode);
   filterList = [];
-  if (mode === 'all') {
-    console.log(mode);
-  } else if (mode === 'to-do') {
+  if (mode === 'to-do') {
     // 진행 중만 표시
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isComplete === false) {
